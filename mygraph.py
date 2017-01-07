@@ -6,74 +6,14 @@ import numpy as np
 import scipy.sparse as ssp
 import os, subprocess
 
-
-# g=Graph(directed=False)
-# n=10
-# g.add_vertex(n)
-
-# # insert some random links
-# m=20
-# for s,t in izip(randint(0, n, m), randint(0, n, m)):
-# 	if s!=t:
-# 		g.add_edge(g.vertex(s), g.vertex(t))
-
-# for e in g.edges():
-# 	pass
-# 	#print e, e.source(), e.target()
-
-# vprop_label = g.new_vertex_property("short")
-# vprop_color = g.new_vertex_property("string") 
-
-# for v in g.vertices():
-# 	vprop_label[v]=randint(0,10,1)
-# 	if vprop_label[v]%2==0:
-# 		vprop_color[v]="red"
-# 	else:
-# 		vprop_color[v]="blue"
-
-# g.vertex_properties["label"] = vprop_label
-# g.vertex_properties["color"] = vprop_color
-
-# pos = sfdp_layout(g)
-#graph_draw(g, pos, output_size=(100, 100), vertex_color=[1,1,1,0], vertex_fill_color=g.vertex_properties["color"] , vertex_size=2, edge_pen_width=0.05,output="graph.pdf")
-#======================================================================================================
 path="./frames"
 if not os.path.exists(path):
     os.makedirs(path)
 
-g=collection.data["karate"]
-A=transition(g)
-vprop_stat=g.new_vertex_property("double")
-N=len(list(g.vertices() ))
+#random walk Simulation:
 
-pos = graph_tool.draw.sfdp_layout(g)
-graph_draw(g, pos, output_size=(1000, 1000), vertex_color=[1,1,1,0], vertex_fill_color="red" , vertex_size=1, edge_pen_width=0.3,output="karate.png")
-#=================================================
-#pagerank
-
-if not os.path.exists(path+"/pagerank"):
-    os.makedirs(path+"/pagerank")
-
-v=ssp.lil_matrix((N, 1))
-damp=ssp.lil_matrix((N,1))
-for i in range(N):
-    v[i,0]=1/float(N)
-    damp[i,0]=1/float(N)
-    vprop_stat[i]=600/float(N)
-
-graph_draw(g, pos, output_size=(1000, 1000), vertex_fill_color="green" , vertex_size=vprop_stat, edge_pen_width=0.3,output=path+"/pagerank/"+"page"+str(0)+".svg")
-LL=20
-for j in range(1,LL):
-    v=0.85*A*v+0.15*damp
-    for i in range(N):
-        vprop_stat[i]=v[i,0]*600
-        graph_draw(g, pos, output_size=(1000, 1000), vertex_fill_color="green"  , vertex_size=vprop_stat, edge_pen_width=0.3,output=path+"/pagerank/"+"page"+str(j)+".svg")
-
-
-#======================================================================================================================================
-#random walk 
+#loading graph
 h=collection.data["karate"]
-A=transition(h)
 vprop_stat=h.new_vertex_property("double")
 N=len(list(h.vertices() ))
 pos = sfdp_layout(h)
@@ -83,12 +23,16 @@ if not os.path.exists(path+"/randomwalk"):
 
 
 L=200 # length of random walk
+
+#definig vertex properties for animation purpose. This will help to change color, size, etc. during run of algortithms
+
 vprop_color = h.new_vertex_property("string") 
 vprop_blinker= h.new_vertex_property("short") 
 vprop_label = h.new_vertex_property("short")
 
 eprop_color = h.new_edge_property("string") 
 
+#ininital node for random walk is chosen to be state 0
 state=h.vertex(0)
 for i in range(N):
         vprop_color[i]="red"
