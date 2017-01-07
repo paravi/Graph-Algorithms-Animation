@@ -10,9 +10,9 @@ Tiago P. Peixoto, “The graph-tool python library”, figshare. (2014) DOI: 10.
 ## Example Run
 python mygraph.py
 
-A series of images correspondig to algorithm runs will be created in the folder ./frames and specific figures are saved in subfolders such as ./frames/dfs or ./frames/bfs , etc. In current code, the animations are cretaed for existing data network called Karate Club in graph-tools module.
+A series of images correspondig to algorithm runs will be created in the folder ./frames and specific figures are saved in subfolders such as ./frames/dfs or ./frames/bfs , etc. In current code, the animations are created for existing network called Karate Club in graph-tools module.
 
-For creating animation, we can use convert command in bash, which is listed in ./createanim.sh:
+For creating animation, one can use 'convert' command in shell, which is listed in ./createanim.sh:
 
 chmod +x createanim.sh
 
