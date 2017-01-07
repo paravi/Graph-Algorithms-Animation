@@ -1,5 +1,5 @@
 # Graph-Algorithms-Animation
-This repo is an illustration for graph search algorithms using python. This involves Breadth-first searach, Depth-first search and a random walk simulation. The purpose of animations is to illustrate how these algorithms work in principle.
+This repo is an simple illustration for graph search/exploration algorithms using python. This involves Breadth-first searach, Depth-first search and a random walk simulation. The purpose of animations is to illustrate how these algorithms work in principle.
 
 ## Dependencies
 The script is written is python and is based on graph-tools package:
